@@ -1,8 +1,14 @@
+
 name: Compile LaTeX
 
 on:
   push:
     branches: [ main ]
+    paths:
+      - '**.tex'
+      - '**.bib'
+      - '**.cls'
+      - 'figures/**'
   pull_request:
     branches: [ main ]
 
@@ -20,8 +26,21 @@ jobs:
         root_file: main.tex
         args: -pdf -interaction=nonstopmode -file-line-error
     
-    - name: Upload PDF artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: article-pdf
-        path: main.pdf
+    - name: Check if PDF was generated
+      run: |
+        if [ -f "main.pdf" ]; then
+          echo "PDF generated successfully"
+          ls -lh main.pdf
+        else
+          echo "ERROR: PDF was not generated"
+          exit 1
+        fi
+    
+    - name: Commit and push PDF to repository
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add main.pdf
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-compile: Update main.pdf [skip ci]" && git push)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
