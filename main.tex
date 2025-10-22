@@ -1,0 +1,32 @@
+% Artículo derivado de la monografía
+% Plantilla basada en la clase revcoles de la Revista Colombiana de Estadística
+
+\documentclass[english]{revcoles}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textgreek}
+\usepackage[T1]{fontenc}
+\usepackage{textgreek}
+% Incluir archivos de secciones
+\begin{document}
+
+% Sección de título, autores y resúmenes
+\input{sections/00_title_abstract}
+
+% Secciones principales del manuscrito
+\input{sections/01_introduction}
+\input{sections/02_methods}
+\input{sections/03_results}
+\input{sections/04_discussion}
+\input{sections/05_conclusions}
+\input{sections/06_ack_funding_ethics_data}
+
+% Bibliografía
+\bibliography{references}
+
+\end{document}
