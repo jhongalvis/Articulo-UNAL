@@ -12,15 +12,16 @@ jobs:
     
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     
     - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@v2
+      uses: xu-cheng/latex-action@v3
       with:
         root_file: main.tex
-        
-    - name: Upload PDF
-      uses: actions/upload-artifact@v3
+        args: -pdf -interaction=nonstopmode -file-line-error
+    
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
       with:
-        name: PDF
+        name: article-pdf
         path: main.pdf
